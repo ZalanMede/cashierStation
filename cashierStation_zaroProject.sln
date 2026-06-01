@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36717.8 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cashierStation_zaroProject", "cashierStation_zaroProject\cashierStation_zaroProject.csproj", "{E4FDC83D-0E18-41FD-B124-1F0BD47C7209}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4FDC83D-0E18-41FD-B124-1F0BD47C7209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4FDC83D-0E18-41FD-B124-1F0BD47C7209}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4FDC83D-0E18-41FD-B124-1F0BD47C7209}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4FDC83D-0E18-41FD-B124-1F0BD47C7209}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13B2B97A-2330-421F-8B47-5F1552C75FE2}
+	EndGlobalSection
+EndGlobal
