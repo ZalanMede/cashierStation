@@ -29,7 +29,7 @@ namespace cashierStation_zaroProject.Models
             Role = role;
         }
 
-        public User(string username, string fullName, string password, int role)
+        public User(string username, string fullName, int role, string password)
         {
             Username = username;
             FullName = fullName;

@@ -9,6 +9,8 @@ namespace cashierStation_zaroProject
     /// </summary>
     public partial class App : Application
     {
+        static string dataBase = "cashierDataDB.db";
+        static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        public static string dataBasePath = System.IO.Path.Combine(path, dataBase);
     }
-
 }

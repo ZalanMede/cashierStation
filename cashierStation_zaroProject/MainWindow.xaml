@@ -39,8 +39,8 @@
             <TextBox
                 x:Name="loginUserInTxt"
                 Grid.Row="1"
-                Width="350"
-                HorizontalAlignment="Left"
+                Width="375"
+                HorizontalAlignment="Center"
                 Background="LightGray" />
             <TextBlock
                 Grid.Row="2"
@@ -49,8 +49,8 @@
             <PasswordBox
                 x:Name="loginPasswordInTxt"
                 Grid.Row="3"
-                Width="350"
-                HorizontalAlignment="Left"
+                Width="375"
+                HorizontalAlignment="Center"
                 Background="LightGray" />
             <TextBlock
                 Grid.Row="4"
