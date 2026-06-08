@@ -26,7 +26,20 @@ namespace cashierStation_zaroProject
 
         private void NumButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            Button senderBtn = (Button)sender;
+            string hitNum = (string)senderBtn.Content;
+
+            numInputTxtBox.Text += hitNum.ToString();
+        }
+
+        private void numEnter_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void numDel_Click(object sender, RoutedEventArgs e)
+        {
+            numInputTxtBox.Text = numInputTxtBox.Text.Remove(numInputTxtBox.Text.Length - 1);
         }
     }
 }

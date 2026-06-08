@@ -22,6 +22,21 @@ namespace cashierStation_zaroProject
         public MainWindow()
         {
             InitializeComponent();
+            using (SQLiteConnection conn = new SQLiteConnection(App.dataBasePath))
+            {
+                try
+                {
+                    User user = new User("User1", "User Neve", 0, PassManager.HashPassword("Pass1"));
+                    var felhasznaloRepo = new GenericRepository<User>(App.dataBasePath);
+                    felhasznaloRepo.Insert(user);
+                }
+                catch (Exception ar)
+                {
+                    
+                    throw;
+                }
+
+            }
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)

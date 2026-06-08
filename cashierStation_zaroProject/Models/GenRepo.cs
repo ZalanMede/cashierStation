@@ -27,8 +27,16 @@ namespace cashierStation_zaroProject.Models
         {
             using (SQLite.SQLiteConnection connection = new SQLite.SQLiteConnection(databasePath))
             {
-                connection.CreateTable<T>();
-                connection.Insert(item);
+                try
+                {
+                    connection.CreateTable<T>();
+                    connection.Insert(item);
+                }
+                catch (Exception)
+                {
+
+                }
+
             }
         }
         public void Update(T item)
