@@ -6,58 +6,136 @@
         xmlns:local="clr-namespace:cashierStation_zaroProject"
         mc:Ignorable="d"
         Title="StationControllerWindow"
-        Height="450"
+        Height="500"
         Width="800"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
     <Window.Resources>
-        <ResourceDictionary>
-            <Style TargetType="TextBlock">
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="TextAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="Padding" Value="22, 17"/>
-                <Setter Property="FontSize" Value="10"/>
-            </Style>
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="ForestGreen"/>
-                <Setter Property="Foreground" Value="White"></Setter>
-                <Setter Property="FontSize" Value="18"/>
-            </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="Width" Value="250"/>
-                <Setter Property="Height" Value="25"/>
-            </Style>
-        </ResourceDictionary>
+        <ResourceDictionary Source="/Resources/ResDict_MainPage.xaml"/>
     </Window.Resources>
     <DockPanel
-        Background="LightGray"
+        Background="WhiteSmoke"
         Width="800"
-        Height="400">
+        Height="450">
         <StackPanel
             DockPanel.Dock="Left"
-            Width="200"></StackPanel>
+            Width="450">
+            <DataGrid
+                x:Name="itemDataGrid"
+                Height="350">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Név"/>
+                    <DataGridTextColumn Header="Eredeti ár"/>
+                    <DataGridTextColumn Header="Ár"/>
+                    <DataGridTextColumn Header="Leárazás"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Content="-"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Mennyiség"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Content="+"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Összesen"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Content="DEL"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </StackPanel>
+        
         <StackPanel>
+
+            <Grid Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="0"
+                    Text="Esedékes pénzmennyiség:"
+                    Foreground="DarkGray"
+                    HorizontalAlignment="Left"/>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Padding="0"
+                    x:Name="payDue"
+                    Text="0.00 HUF"
+                    HorizontalAlignment="Right"
+                    Foreground="DarkGray"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Padding="0"
+                    Text="Kapott pénzmennyiség:"
+                    Foreground="DarkGray"
+                    HorizontalAlignment="Left"/>
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Padding="0"
+                    x:Name="payRec"
+                    Text="0.00 HUF"
+                    Foreground="DarkGray"
+                    HorizontalAlignment="Right"/>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Padding="0"
+                    Text="Visszajáró:"
+                    Foreground="Black"
+                    HorizontalAlignment="Left"/>
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Padding="0"
+                    x:Name="payChange"
+                    Text="0.00 HUF"
+                    Foreground="Black"
+                    HorizontalAlignment="Right"/>
+            </Grid>
+
             <TextBox
-            x:Name="numInputTxtBox"
-            IsEnabled="False"/>
+                x:Name="numInputTxtBox"
+                IsEnabled="False"
+                Margin="0, 20, 0, 10"/>
 
             <Grid DockPanel.Dock="Right"
-                Margin="0, 50">
+                Margin="5, 20">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
                 <Button
                     Grid.Row="0"
@@ -114,30 +192,99 @@
                     Content="9">
                 </Button>
                 <Button
-                Grid.Row="3"
-                Grid.Column="0"
-                x:Name="numDel"
-                Click="numDel_Click">
-                    <TextBlock
-                        Text="DEL"
-                        Padding="17, 18.5"/>
-                </Button>
-                <Button
                     Grid.Row="3"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Click="NumButton_Click"
                     Content="0">
                 </Button>
                 <Button
                     Grid.Row="3"
+                    Grid.Column="1"
+                    Click="NumButton_Click"
+                    Content="00">
+                </Button>
+                <Button
+                    Grid.Row="3"
                     Grid.Column="2"
+                    Click="NumButton_Click"
+                    Content="●">
+                </Button>
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Click="NumButton_Click"
+                    Content="000">
+                </Button>
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    x:Name="numCancelAll"
+                    Background="DarkRed"
+                    Click="numCancelAll_Click">
+                    <TextBlock
+                        Text="STORNO"
+                        Foreground="Black"
+                        Padding="17, 18.5"/>
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    x:Name="numDel"
+                    Background="#E58782"
+                    Click="numDel_Click">
+                    <TextBlock
+                        Text="DEL"
+                        Foreground="#FB3227"
+                        Padding="17, 18.5"/>
+                </Button>
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="3"
                     x:Name="numEnter"
+                    Background="#98fb98"
                     Click="numEnter_Click">
                     <TextBlock
+                        Foreground="Green"
                         Text="ENTER"
                         Padding="11, 18.5"/>
                 </Button>
             </Grid>
+
+            <StackPanel
+                Orientation="Horizontal"
+                HorizontalAlignment="Left"
+                Width="300">
+                <Button
+                    x:Name="paymentCash"
+                    Click="paymentCash_Click"
+                    Content="CASH"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    FontSize="12"
+                    Width="93"
+                    Padding="5, 10"
+                    Margin="5, 0, 2.5, 0"/>
+                <Button
+                    x:Name="paymentCredit"
+                    Click="paymentCredit_Click"
+                    Content="CREDIT"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    FontSize="12"
+                    Width="93"
+                    Padding="5, 10"
+                    Margin="2.5, 0"/>
+                <Button
+                    x:Name="paymentOther"
+                    Click="paymentOther_Click"
+                    Content="OTHER"
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    FontSize="12"
+                    Width="93"
+                    Padding="5, 10"
+                    Margin="2.5, 0"/>
+            </StackPanel>
         </StackPanel>
 
 
