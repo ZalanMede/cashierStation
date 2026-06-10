@@ -26,17 +26,21 @@ namespace cashierStation_zaroProject
             {
                 try
                 {
-                    User user = new User("User1", "User Neve", 0, PassManager.HashPassword("Pass1"));
+                    List<User> usersList = new List<User>
+                    {
+                        new User("User1", "User Neve", 3, PassManager.HashPassword("Pass1")),
+                        new User("admin", "Admin Teljesnev", 0, PassManager.HashPassword("admin"))
+                    };
                     var felhasznaloRepo = new GenericRepository<User>(App.dataBasePath);
-                    felhasznaloRepo.Insert(user);
+                    felhasznaloRepo.InsertMultiple(usersList);
 
                     var itemRepo = new GenericRepository<Item>(App.dataBasePath);
                     List<Item> itemsList = new List<Item> {
-                        new Item("Tojás", 95.00, 27.37, "tojas", "Maris néni", "Toás :D"),
-                        new Item("Tej", 250.00, 27.37, "tej", "Maris néni", "Tej :D"),
-                        new Item("Kenyér", 400.00, 27.37, "kenyer", "Maris néni", "Kenyér :D"),
-                        new Item("Sajt", 500.00, 27.37, "sajt", "Maris néni", "Sajt :D"),
-                        new Item("Alma", 150.00, 27.37, "alma", "Maris néni", "Alma :D"),
+                        new Item("Tojás", 95.00, 27.37, "tojas", "Maris néni", "Toás :D (igen, egy darab)"),
+                        new Item("Tej", 250.00, 27.37, "tej", "Maris néni", "Tej."),
+                        new Item("Kenyér", 400.00, 27.37, "kenyer", "Maris néni", "Kenyér, talán kovászos"),
+                        new Item("Sajt", 500.00, 27.37, "sajt", "Maris néni", "Sajt, nem büdös"),
+                        new Item("Alma", 150.00, 27.37, "alma", "Maris néni", "Piros alma"),
                     };
                     itemRepo.InsertMultiple(itemsList);
                 }
