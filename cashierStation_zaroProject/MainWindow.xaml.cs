@@ -29,11 +29,20 @@ namespace cashierStation_zaroProject
                     User user = new User("User1", "User Neve", 0, PassManager.HashPassword("Pass1"));
                     var felhasznaloRepo = new GenericRepository<User>(App.dataBasePath);
                     felhasznaloRepo.Insert(user);
+
+                    var itemRepo = new GenericRepository<Item>(App.dataBasePath);
+                    List<Item> itemsList = new List<Item> {
+                        new Item("Tojás", 95.00, 27.37, "tojas", "Maris néni", "Toás :D"),
+                        new Item("Tej", 250.00, 27.37, "tej", "Maris néni", "Tej :D"),
+                        new Item("Kenyér", 400.00, 27.37, "kenyer", "Maris néni", "Kenyér :D"),
+                        new Item("Sajt", 500.00, 27.37, "sajt", "Maris néni", "Sajt :D"),
+                        new Item("Alma", 150.00, 27.37, "alma", "Maris néni", "Alma :D"),
+                    };
+                    itemRepo.InsertMultiple(itemsList);
                 }
-                catch (Exception ar)
+                catch (Exception ex)
                 {
-                    
-                    throw;
+                    MessageBox.Show(ex.Message);
                 }
 
             }

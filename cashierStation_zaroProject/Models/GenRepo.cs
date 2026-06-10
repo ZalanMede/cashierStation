@@ -23,6 +23,22 @@ namespace cashierStation_zaroProject.Models
                 return connection.Table<T>().ToList();
             }
         }
+        public void InsertMultiple(List<T> itemList)
+        {
+            using (SQLite.SQLiteConnection connection = new SQLite.SQLiteConnection(databasePath))
+            {
+                try
+                {
+                    connection.CreateTable<T>();
+                    itemList.ForEach(item => connection.Insert(item));
+                }
+                catch (Exception)
+                {
+
+                }
+
+            }
+        }
         public void Insert(T item)
         {
             using (SQLite.SQLiteConnection connection = new SQLite.SQLiteConnection(databasePath))

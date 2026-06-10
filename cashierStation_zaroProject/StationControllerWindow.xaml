@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="StationControllerWindow"
         Height="500"
-        Width="800"
+        Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
     <Window.Resources>
@@ -15,41 +15,47 @@
     </Window.Resources>
     <DockPanel
         Background="WhiteSmoke"
-        Width="800"
+        Width="1000"
         Height="450">
         <StackPanel
             DockPanel.Dock="Left"
-            Width="450">
+            Width="650">
             <DataGrid
                 x:Name="itemDataGrid"
                 Height="350">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Név"/>
-                    <DataGridTextColumn Header="Eredeti ár"/>
-                    <DataGridTextColumn Header="Ár"/>
-                    <DataGridTextColumn Header="Leárazás"/>
+                    <DataGridTextColumn Header="Vonalkód" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Név" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Eredeti ár" Binding="{Binding OriginalPrice, StringFormat=F2}"/>
+                    <DataGridTextColumn Header="Ár" Binding="{Binding CurrentPrice, StringFormat=F2}"/>
+                    <DataGridTextColumn Header="Leárazás" Binding="{Binding DiscountPercent}"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button
+                                    Click="decreaseBtn_Click"
+                                    CommandParameter="dec"
                                     Content="-"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Mennyiség"/>
+                    <DataGridTextColumn Header="Mennyiség" Binding="{Binding Amount}"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button
+                                    Click="decreaseBtn_Click"
+                                    CommandParameter="inc"
                                     Content="+"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Összesen"/>
+                    <DataGridTextColumn Header="Összesen" Binding="{Binding Total, StringFormat=N2}"/>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button
+                                    Click="deleteItemBtn_Click"
                                     Content="DEL"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -61,7 +67,7 @@
         
         <StackPanel>
 
-            <Grid Background="LightGray">
+            <Grid Background="LightGray" x:Name="transactionGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -74,14 +80,14 @@
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
-                    Padding="0"
+                    Padding="5"
                     Text="Esedékes pénzmennyiség:"
                     Foreground="DarkGray"
                     HorizontalAlignment="Left"/>
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="1"
-                    Padding="0"
+                    Padding="5"
                     x:Name="payDue"
                     Text="0.00 HUF"
                     HorizontalAlignment="Right"
@@ -89,14 +95,14 @@
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
-                    Padding="0"
+                    Padding="5"
                     Text="Kapott pénzmennyiség:"
                     Foreground="DarkGray"
                     HorizontalAlignment="Left"/>
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
-                    Padding="0"
+                    Padding="5"
                     x:Name="payRec"
                     Text="0.00 HUF"
                     Foreground="DarkGray"
@@ -104,14 +110,14 @@
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
-                    Padding="0"
+                    Padding="5"
                     Text="Visszajáró:"
                     Foreground="Black"
                     HorizontalAlignment="Left"/>
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
-                    Padding="0"
+                    Padding="5"
                     x:Name="payChange"
                     Text="0.00 HUF"
                     Foreground="Black"
@@ -153,7 +159,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Click="NumButton_Click"
-                    Content="4">
+                    Content="3">
                 </Button>
                 <Button
                     Grid.Row="1"

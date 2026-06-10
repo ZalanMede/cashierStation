@@ -10,7 +10,10 @@ namespace cashierStation_zaroProject.Models
     {
         ItemManagement,
         CashIn,
+        CashOut,
         CreditIn,
-        OtherIn
+        CreditOut,
+        OtherIn,
+        OtherOut
     }
 }

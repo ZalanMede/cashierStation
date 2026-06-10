@@ -9,6 +9,7 @@ namespace cashierStation_zaroProject.Models
     internal interface InterFGenRepo<T> where T : new()
     {
         List<T> GetAll();
+        void InsertMultiple(List<T> itemList);
         void Insert(T item);
         void Update(T item);
         void Delete(T item);

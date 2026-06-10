@@ -14,9 +14,8 @@ namespace cashierStation_zaroProject.Models
         {
         }
 
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey, AutoIncrement, Unique]
         public int Id { get; set; }
-
         [Unique]
         public string Username { get; set; }
         public string FullName { get; set; }
