@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:cashierStation_zaroProject"
         mc:Ignorable="d"
         Title="StationControllerWindow"
-        Height="500"
+        Height="550"
         Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
@@ -15,8 +15,8 @@
     </Window.Resources>
     <DockPanel
         Background="WhiteSmoke"
-        Width="1000"
-        Height="450">
+        Width="980"
+        Height="500">
         <StackPanel
             DockPanel.Dock="Left"
             Width="650">
