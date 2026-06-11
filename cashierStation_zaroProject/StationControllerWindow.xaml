@@ -61,8 +61,28 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
-
             </DataGrid>
+
+            <StackPanel Orientation="Horizontal" Margin="25">
+                <Button
+                    x:Name="pointsBtn"
+                    Content="Points Card"
+                    Padding="15, 5"
+                    FontSize="25"
+                    Click="pointsBtn_Click"/>
+                <TextBlock
+                    x:Name="pointsNameTxtBlock"
+                    Text="Név: -"
+                    Foreground="Black"
+                    FontSize="15"
+                    Margin="10, 0"/>
+                <TextBlock
+                    x:Name="pointsTxtBlock"
+                    Text="Jelenlegi Pontok: -"
+                    Foreground="Black"
+                    FontSize="15"
+                    Margin="10, 0"/>
+            </StackPanel>
         </StackPanel>
         
         <StackPanel>

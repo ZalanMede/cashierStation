@@ -22,15 +22,20 @@ namespace cashierStation_zaroProject
     {
         public SystemSate sysState;
         private List<Item> scannedItems = new List<Item>();
-        public StationControllerWindow()
+        private User loggedInUser;
+        private bool hasPointsCard = false;
+        private Customer currentCustomer;
+        public StationControllerWindow(int loggedUserId)
         {
             InitializeComponent();
             sysState = SystemSate.ItemManagement;
+            var userRepo = new GenericRepository<User>(App.dataBasePath);
+            loggedInUser = userRepo.GetAll().First(u => u.Id == loggedUserId);
         }
 
         private void NumButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sysState == SystemSate.ItemManagement || sysState == SystemSate.CashIn)
+            if (sysState == SystemSate.ItemManagement || sysState == SystemSate.CashIn || sysState == SystemSate.PointsIn)
             {
                 Button senderBtn = (Button)sender;
                 string hitNum = (string)senderBtn.Content;
@@ -103,6 +108,25 @@ namespace cashierStation_zaroProject
                 case SystemSate.CashOut:
                     PaymentDone();
                     break;
+                case SystemSate.PointsIn:
+                    var customerRepo = new GenericRepository<Customer>(App.dataBasePath);
+                    try
+                    {
+                        currentCustomer = customerRepo.GetAll().First(c => c.CardCode == long.Parse(numInputTxtBox.Text));
+                        pointsTxtBlock.Text = $"Jelenlegi Pontok: {currentCustomer.Points}";
+                        pointsNameTxtBlock.Text = $"Név: {currentCustomer.FullName}";
+                        hasPointsCard = true;
+                        pointsBtn.IsEnabled = false;
+
+                        numInputTxtBox.Background = Brushes.LightGray;
+                        numInputTxtBox.Text = "";
+                        sysState = SystemSate.ItemManagement;
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Nincs ilyen pontkártya!");
+                    }
+                    break;
                 default:
                     MessageBox.Show("Error: Nincs SystemState");
                     break;
@@ -119,13 +143,32 @@ namespace cashierStation_zaroProject
             paymentOther.Background = Brushes.LightGray;
             numInputTxtBox.Background = Brushes.White;
 
+            Receipt receipt = hasPointsCard ? new Receipt(loggedInUser.Id, DateTime.Now, scannedItems.Sum(i => i.Total), scannedItems) 
+                : new Receipt(loggedInUser.Id, DateTime.Now, scannedItems.Sum(i => i.Total), scannedItems);
+            var receiptRepo = new GenericRepository<Receipt>(App.dataBasePath);
+            receiptRepo.Insert(receipt);
+
+            if (hasPointsCard)
+            {
+                var customerRepo = new GenericRepository<Customer>(App.dataBasePath);
+                customerRepo.Update(new Customer(currentCustomer.Id, currentCustomer.CardCode, currentCustomer.Points + (int)(Math.Floor(scannedItems.Sum(i => i.Total) / 100)), currentCustomer.FullName, currentCustomer.Email, currentCustomer.PhoneNumber));
+                MessageBox.Show((currentCustomer.Points + (int)(Math.Floor(scannedItems.Sum(i => i.Total) / 100))).ToString());
+            }
+
+            MessageBox.Show(hasPointsCard ? $"TRANZAKCIÓ SIKERES\nKapott pontok: {((int)(Math.Floor(scannedItems.Sum(i => i.Total) / 100))).ToString()}"
+                 : "TRANZAKCIÓ SIKERES");
             payRec.Text = "0.00 HUF";
             payChange.Text = "0.00 HUF";
             scannedItems.Clear();
+            pointsNameTxtBlock.Text = "Név: -";
+            pointsTxtBlock.Text = "Jelenlegi Pontok: -";
+            pointsBtn.IsEnabled = true;
+            pointsBtn.Background = Brushes.LightGray;
+            currentCustomer = null;
+            hasPointsCard = false;
             RefreshData();
 
             itemDataGrid.IsEnabled = true;
-            MessageBox.Show("TRANZAKCIÓ SIKERES");
             transactionGrid.Background = Brushes.LightGray;
         }
 
@@ -228,6 +271,16 @@ namespace cashierStation_zaroProject
                 numInputTxtBox.Background = Brushes.LightGreen;
                 payDue.Text = (scannedItems.Sum(i => i.Total)).ToString("0.00") + " HUF";
                 itemDataGrid.IsEnabled = false;
+            }
+        }
+
+        private void pointsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (sysState == SystemSate.ItemManagement)
+            {
+                sysState = SystemSate.PointsIn;
+                pointsBtn.Background = Brushes.LightGreen;
+                numInputTxtBox.Background = Brushes.LightGreen;
             }
         }
     }

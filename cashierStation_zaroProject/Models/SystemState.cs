@@ -14,6 +14,7 @@ namespace cashierStation_zaroProject.Models
         CreditIn,
         CreditOut,
         OtherIn,
-        OtherOut
+        OtherOut,
+        PointsIn
     }
 }
